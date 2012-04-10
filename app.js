@@ -104,6 +104,7 @@ app.get('/task/edit/:id', function(req, res){
   });
 });
 
+//atualizar os dados
 app.put('/task/:id', function(req, res){
   TaskModel.update({ 
     _id: req.params.id }, 
@@ -112,7 +113,16 @@ app.put('/task/:id', function(req, res){
   });
 });
 
-
+//deletar tarefas
+app.get('/task/delete/:id', function(req, res){
+  TaskModel.findById(req.params.id, function (err, result) {
+    result.remove(result);
+    console.log('Deleted ' + result.id);
+    res.redirect('/');
+    if (!err) {
+    }
+  });
+});
 
 
 var port = process.env.PORT || 3000;
