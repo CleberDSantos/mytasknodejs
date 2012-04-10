@@ -1,0 +1,10 @@
+div(data-role='fieldcontain')
+ label(for='task_title') Título:
+ input(type='text',id='task_title',name='task[title]',value=task.title, data-mini='true')
+ label(for='task_description') Descrição:
+ textarea(type='text',id='task_description',name='task[description]',data-mini='true')=value=task.description
+fieldset(class='ui-grid-a')
+    div.ui-block-a
+     input(type='submit', data-theme='c',value='Cancelar') 
+    div.ui-block-b
+     input(type='submit', data-theme='a',value='Enviar')

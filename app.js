@@ -7,12 +7,15 @@ mongoose.connect('mongodb://root:1234@staff.mongohq.com:10093/tasks');
 var Schema = mongoose.Schema;
 
 var Task = new Schema({
-    title  :  { type: String, default: 'Tarefa 1' }
-  , description   :  { type: String }
+    title  :  { type: String, default:'Tarefa 1' }
+  , description :  { type: String }
 });
 
-var TaskModel = mongoose.model('Task',Task);
 
+
+
+var TaskModel = mongoose.model('Task',Task);
+/*
 var objTask = new TaskModel();
 objTask.title = "Minha segunda tarefa";
 objTask.description = "Apenas uma descrição";
@@ -22,7 +25,7 @@ objTask.save(function(err) {
   console.log('Tarefa salva, starting server...');
 
 }); 
-/**/
+*/
 
 app.configure(function () {
     app.use(express.logger());
@@ -60,8 +63,57 @@ app.get('/', function(req, res){
 		tasks: result
 		}});
         
-    })
+    });
 });
+
+// metodo para inserção de tarefas
+app.get('/task/insert', function(req, res) {    
+	res.render('task/insert', {locals: {	 
+		task: req.body && req.body.task || new TaskModel()}
+	});
+});
+
+//metodo para cadastrar a tarefa
+app.post('/tasks',function(req,res){
+ 
+ var t = new TaskModel();
+ 
+ t.title = req.body.task.title;
+ t.description = req.body.task.description;
+ 
+ t.save(function(err){
+     if(!err){
+        res.redirect('/');
+     }
+ });
+    
+});
+
+//método para editar tarefas
+app.get('/task/edit/:id', function(req, res){
+  TaskModel.findById(req.params.id, function(err, result, body){
+    try {
+      res.render('task/edit', { locals: {
+          task: result
+        }
+      });
+      console.log("Editando: " + result.id);
+    }catch(e) {
+      console.log(e);
+    }
+  });
+});
+
+app.put('/task/:id', function(req, res){
+  TaskModel.update({ 
+    _id: req.params.id }, 
+    req.body.task, 
+    function(){ res.redirect('/'); 
+  });
+});
+
+
+
 
 var port = process.env.PORT || 3000;
 app.listen(port);

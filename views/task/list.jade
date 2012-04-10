@@ -1,5 +1,6 @@
 div(data-role='header')
     h1= 'Minhas tarefas'
+    <a href="/task/insert" data-role="button" data-icon="plus">Adicionar</a>
 
 div(data-role='content')    
     ul(data-role='listview',data-inset='true')!= partial('task',{collection:tasks})

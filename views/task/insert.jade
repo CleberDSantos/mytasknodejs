@@ -1,0 +1,4 @@
+div(data-role='header')
+    h1= 'Cadastro de tarefas'
+div(data-role='content')
+   form(action='/tasks', method='POST')!= partial('partial/task_form',{locals:{task: task}})

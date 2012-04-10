@@ -1,0 +1,8 @@
+div(data-role='header')
+    <a href="/" data-role="button" data-icon="arrow-l">Voltar</a>    
+    h1= 'Editar tarefa'
+    <a href="/task/delete" data-role="button" data-icon="delete">Excluir</a>
+div(data-role='content')
+   form(action='/task/'+task.id, method='POST')
+    input(type='hidden', name='_method', value='PUT')
+    div!= partial('partial/task_form',{locals:{task: task}})
