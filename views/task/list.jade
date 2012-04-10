@@ -1,0 +1,5 @@
+div(data-role='header')
+    h1= 'Minhas tarefas'
+
+div(data-role='content')    
+    ul(data-role='listview',data-inset='true')!= partial('task',{collection:tasks})

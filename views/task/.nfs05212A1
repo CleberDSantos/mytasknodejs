@@ -1,0 +1,7 @@
+div(data-role='page')
+div(data-role='header')
+    h1= 'teste'
+
+div(data-role='content')    
+    ul(data-role='listview',data-inset='true',data-filter='true')
+            li: a(href='#') Acura
